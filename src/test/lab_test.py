@@ -4,7 +4,7 @@ from src.main import lab
 
 
 class TestLab(unittest.TestCase):
-
+    
     def test_connect_to_database(self):
 
         # Assert that the connection was successful
@@ -24,16 +24,11 @@ class TestLab(unittest.TestCase):
 
         lab.insert_dog("Mister", "Foxhound", 5)
 
-        # assert that there is a row in the dogs table
-        lab.cursor.execute("SELECT * FROM dogs")
-        row = lab.cursor.fetchone()
-        self.assertIsNotNone(row, "No rows found in the dogs table.")
-
         # select all rows from the "dogs" table
-        rows = lab.cursor.execute("SELECT * FROM dogs").fetchall()
+        rows = lab.select_all_dogs()
 
         # assert that the dog was inserted correctly
-        self.assertIn(("Mister", "Foxhound", 5), rows, "Failed to insert dog correctly.")
+        self.assertIn((1, "Mister", "Foxhound", 5), rows, "Failed to insert dog correctly.")
 
 
 if __name__ == "__main__":
